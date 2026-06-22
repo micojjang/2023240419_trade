@@ -52,7 +52,7 @@ def run_trading_loop(client: KISApiClient, config: dict, logger) -> None:
     logger.info("=" * 60)
     logger.info("[TRADER] 자동매매 시작 | 종목: %s",
                 ", ".join(s["name"] for s in WATCHLIST))
-    logger.info("[TRADER] 전략: 등락률 -1%% 이하 + RSI 복합 판단")
+    logger.info("[TRADER] 전략: 모멘텀(등락률 +0.3%% 이상) + RSI 복합 판단")
     logger.info("[TRADER] 매매 시간대: %s ~ %s",
                 config["trade_start"], config["trade_end"])
     logger.info("=" * 60)

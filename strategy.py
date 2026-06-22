@@ -1,6 +1,7 @@
 """
 strategy.py
-A학점 차별화 전략: 전일 대비 등락률 + RSI 복합 판단.
+A학점 차별화 전략: 모멘텀(Trend Following) + RSI 복합 판단.
+장중 상승 추세가 확인되면 매수하는 추세 추종 전략.
 trader.py에서 호출됩니다.
 """
 
@@ -52,12 +53,12 @@ def moving_average(prices: list, window: int) -> float | None:
 
 def decide(price_info: dict, price_history: list = None) -> Tuple[str, str]:
     """
-    매매 신호 판단.
+    매매 신호 판단 — 모멘텀(Trend Following) 전략.
 
     전략:
-      - 전일 대비 등락률 -1% 이하 → 매수 후보
+      - 전일 대비 등락률 +0.3% 이상 → 상승 추세 확인 → 매수 후보
       - 가격 히스토리 15개 이상이면 RSI 추가 확인
-        RSI > 50이면 매수 보류 (추세 반전 미확인)
+        RSI < 30이면 매수 보류 (과매도 구간, 추세 신뢰도 낮음)
       - 그 외 → HOLD
 
     Args:
@@ -72,18 +73,18 @@ def decide(price_info: dict, price_history: list = None) -> Tuple[str, str]:
     decision = "HOLD"
     reason = "조건 미충족"
 
-    if change_rate <= -1.0:
+    if change_rate >= 0.3:
         decision = "BUY"
-        reason = f"등락률 {change_rate:.2f}% (임계값 -1.0% 이하)"
+        reason = f"등락률 {change_rate:+.2f}% (모멘텀 임계값 +0.3% 이상)"
 
         if price_history and len(price_history) >= 15:
             rsi = compute_rsi(price_history)
-            if rsi > 50:
+            if rsi < 30:
                 decision = "HOLD"
                 reason = (
-                    f"등락률 조건 충족이나 RSI={rsi:.1f} (50 초과, 매수 보류)"
+                    f"등락률 조건 충족이나 RSI={rsi:.1f} (30 미만, 추세 신뢰도 낮음)"
                 )
             else:
-                reason += f" + RSI={rsi:.1f} (과매도 확인 → 매수)"
+                reason += f" + RSI={rsi:.1f} (추세 확인 → 매수)"
 
     return decision, reason
