@@ -1,0 +1,21 @@
+=== small ===
+[small] step    0 | train 4.3553 | val 4.3555
+[small] step  200 | train 2.4645 | val 2.4592
+[small] step  400 | train 2.2977 | val 2.3081
+[small] step  600 | train 2.1134 | val 2.1230
+[small] step  800 | train 1.9873 | val 2.0068
+[small] step 1000 | train 1.8828 | val 1.9340
+
+=== medium ===
+[medium] step    0 | train 4.3456 | val 4.3395
+[medium] step  200 | train 2.4039 | val 2.4086
+[medium] step  400 | train 2.1868 | val 2.2001
+[medium] step  600 | train 1.8145 | val 1.8586
+[medium] step  800 | train 1.6173 | val 1.6965
+[medium] step 1000 | train 1.4738 | val 1.6075
+[medium] step 1200 | train 1.3879 | val 1.5438
+[medium] step 1400 | train 1.2885 | val 1.4905
+[medium] step 1600 | train 1.2266 | val 1.4789
+[medium] step 1800 | train 1.1581 | val 1.4481
+[medium] step 2000 | train 1.1011 | val 1.4253
+
