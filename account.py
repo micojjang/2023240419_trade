@@ -53,7 +53,7 @@ def get_holdings(client: KISApiClient, config: dict, logger=None) -> dict:
     # 주문가능금액
     output2 = data.get("output2", [{}])
     available_cash_str = output2[0].get("dnca_tot_amt", "0") if output2 else "0"
-    available_cash = int(available_cash_str)
+    available_cash = int(float(available_cash_str))
 
     # 보유종목 리스트
     holdings = []
