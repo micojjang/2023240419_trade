@@ -58,16 +58,16 @@ def get_holdings(client: KISApiClient, config: dict, logger=None) -> dict:
     # 보유종목 리스트
     holdings = []
     for item in data.get("output1", []):
-        qty = int(item.get("hldg_qty", 0))
+        qty = int(float(item.get("hldg_qty", 0)))
         if qty <= 0:
             continue
         holdings.append({
             "stock_code": item.get("pdno", ""),
             "stock_name": item.get("prdt_name", ""),
             "quantity": qty,
-            "avg_price": int(item.get("pchs_avg_pric", 0)),
-            "current_price": int(item.get("prpr", 0)),
-            "eval_profit_loss": int(item.get("evlu_pfls_amt", 0)),
+            "avg_price": int(float(item.get("pchs_avg_pric", 0))),
+            "current_price": int(float(item.get("prpr", 0))),
+            "eval_profit_loss": int(float(item.get("evlu_pfls_amt", 0))),
         })
 
     result = {

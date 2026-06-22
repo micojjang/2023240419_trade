@@ -49,11 +49,11 @@ def get_current_price(client: KISApiClient, stock_code: str, logger=None) -> dic
     result = {
         "stock_code":    stock_code,
         "stock_name":    output.get("hts_kor_isnm", stock_code),
-        "current_price": int(price_str),
+        "current_price": int(float(price_str)),
         "change_rate":   float(output.get("prdy_ctrt", 0)),   # 전일 대비 등락률
-        "volume":        int(output.get("acml_vol", 0)),       # 누적 거래량
-        "high_price":    int(output.get("stck_hgpr", 0)),      # 당일 고가
-        "low_price":     int(output.get("stck_lwpr", 0)),      # 당일 저가
+        "volume":        int(float(output.get("acml_vol", 0))),       # 누적 거래량
+        "high_price":    int(float(output.get("stck_hgpr", 0))),      # 당일 고가
+        "low_price":     int(float(output.get("stck_lwpr", 0))),      # 당일 저가
     }
 
     if logger:
